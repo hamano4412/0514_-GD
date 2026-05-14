@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: gd-evaluation-mock
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./out
+    pullRequestPreviewsEnabled: false
