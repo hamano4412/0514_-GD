@@ -5,6 +5,19 @@ import { ScoreBar } from "@/components/ScoreBar";
 export default function Page() {
   return (
     <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <h2 className="text-sm font-semibold text-slate-700">
+          直近のGDセッション
+        </h2>
+        <Link
+          href="/upload/"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700"
+        >
+          <span className="text-base leading-none">＋</span>
+          新しい録画を取り込む
+        </Link>
+      </div>
+
       <section className="rounded-xl border border-slate-200 bg-white p-6">
         <div className="text-xs text-slate-500">セッション</div>
         <h2 className="text-xl font-semibold mt-1">{session.topic}</h2>
