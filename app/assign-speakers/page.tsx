@@ -78,7 +78,7 @@ export default function AssignSpeakersPage() {
   const submit = () => {
     setSubmitting(true);
     setTimeout(() => {
-      router.push("/");
+      router.push("/dashboard/");
     }, 700);
   };
 

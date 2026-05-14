@@ -304,3 +304,79 @@ export function formatTime(sec: number): string {
   const s = Math.floor(sec % 60);
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
+
+export type SessionStatus = "analyzed" | "processing" | "queued";
+
+export type SessionMeta = {
+  id: string;
+  conductedAt: string;
+  topic: string;
+  participantCount: number;
+  durationSec: number;
+  status: SessionStatus;
+  /** analyzed: 解析完了時刻 / processing: 進捗% / queued: 開始予定 */
+  statusDetail?: string;
+  highlightCount?: number;
+};
+
+export const sessions: SessionMeta[] = [
+  {
+    id: session.id,
+    conductedAt: session.conductedAt,
+    topic: session.topic,
+    participantCount: session.participants.length,
+    durationSec: session.durationSec,
+    status: "analyzed",
+    statusDetail: "2026-05-14 10:48 解析完了",
+    highlightCount: session.highlights.length,
+  },
+  {
+    id: "session-2026-05-14-02",
+    conductedAt: "2026-05-14 11:00",
+    topic: "リモートワーク下で若手の生産性をどう測定するか(時間:40分)",
+    participantCount: 4,
+    durationSec: 40 * 60,
+    status: "processing",
+    statusDetail: "78% — 話者分離中",
+  },
+  {
+    id: "session-2026-05-14-03",
+    conductedAt: "2026-05-14 14:00",
+    topic: "サブスクサービスの解約率を半年で半減させる施策(時間:40分)",
+    participantCount: 4,
+    durationSec: 40 * 60,
+    status: "queued",
+    statusDetail: "解析待ち(キュー2件目)",
+  },
+  {
+    id: "session-2026-05-13-01",
+    conductedAt: "2026-05-13 15:30",
+    topic: "ChatGPTを業務に導入するROIを示せ(時間:40分)",
+    participantCount: 4,
+    durationSec: 40 * 60,
+    status: "analyzed",
+    statusDetail: "2026-05-13 16:18 解析完了",
+    highlightCount: 6,
+  },
+];
+
+export const STATUS_LABEL: Record<SessionStatus, string> = {
+  analyzed: "解析完了",
+  processing: "解析中",
+  queued: "解析待ち",
+};
+
+export function formatConductedAt(s: string): {
+  date: string;
+  time: string;
+  weekday: string;
+} {
+  const [d, t = ""] = s.split(" ");
+  const date = new Date(`${d}T${t || "00:00"}:00`);
+  const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
+  return {
+    date: d,
+    time: t,
+    weekday: isNaN(date.getTime()) ? "" : weekdays[date.getDay()],
+  };
+}

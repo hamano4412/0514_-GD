@@ -41,9 +41,13 @@ export default function StudentPage({ params }: { params: Params }) {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center gap-3 text-sm">
+      <div className="flex items-center gap-3 text-sm flex-wrap">
         <Link href="/" className="text-brand-600 hover:underline">
-          ← セッション一覧へ戻る
+          セッション一覧
+        </Link>
+        <span className="text-slate-400">/</span>
+        <Link href="/dashboard/" className="text-brand-600 hover:underline">
+          ダッシュボード
         </Link>
         <span className="text-slate-400">/</span>
         <span className="text-slate-600">{student.displayName}</span>
